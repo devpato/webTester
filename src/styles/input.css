@@ -1,0 +1,14 @@
+/*
+    INPUT
+*/
+
+.input {
+    padding: 0 .5em 0 .75em;
+    border-radius: 100px;
+    position: relative;
+    min-width: 400px;
+    height: 40px;
+    border-width:0px;
+    border:none;
+    font-size: 14px;
+}

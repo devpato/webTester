@@ -1,0 +1,20 @@
+/*
+    BUTTON
+*/
+
+.btn {
+    height: 40px;
+    min-width: 100px;
+    font-size: 14px;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    margin: 0 8px;
+    cursor: pointer;
+    border-radius: 25px;
+}
+
+.btn--green {
+    background-color: #4CAF50;
+    color: #fff;
+}

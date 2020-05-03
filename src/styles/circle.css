@@ -1,0 +1,45 @@
+/*
+    PROGRESS CIRCLES
+*/
+
+.progress { 
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 16px;
+}
+
+.progress__circle {
+  transform: rotate(-90deg);
+	margin-top: -40px;
+}
+
+.progress__circle--back {
+	fill: none; 
+	stroke: #D2D2D2;
+	stroke-width:10px;
+}
+
+.progress__circle--prog {
+	fill: none; 
+	stroke-width: 10px;  
+	stroke-dasharray: 0 999;    
+	stroke-dashoffset: 0px;
+    transition: stroke-dasharray 0.7s linear 0s;
+}
+
+.progress__text {
+    top: 28px;
+    position: absolute;
+	width: 100%;
+	text-align: center;
+	font-size: 2em;
+}
+
+.progress__title {
+    margin: 8px;
+    font-size: .875em;
+}
