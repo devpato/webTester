@@ -7,22 +7,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#222" />
-    <meta name="description" content="My First PWA">
+    <meta name="description" content="Website Tester">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="My PWA">
+    <meta name="apple-mobile-web-app-title" content="Website Tester">
     <link rel="apple-touch-icon" href="assets/icons/icon-152x152.png">
-    <title>My PWA</title>
+    <title>Website Tester</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="./styles/styles.css" />
+    <link rel="stylesheet" type="text/css" href="styles.css" />
 </head>
-
 
 <body>
     <div class="form-container">
         <form id="testForm">
             <input type="text" value="https://morkasshoes.com/" id="testURL" required name="url"
-                placeholder="https://google.com">
+                placeholder="https://google.com" class="input">
             <button id="formSubmit" class="btn btn--green">Test</button>
         </form>
         <p id="errorMessage"></p>
@@ -30,12 +29,12 @@
     <div class="report-container"></div>
     <footer>
         <div class="devpato">
-            <p>Made with ❤️ by devpato</p>
+            <p>Made with ❤️ by <a href="https://twitter.com/devpato">devpato</a></p>
         </div>
         <div class="lighthouse">
             <p>Powered by</p><img src="./assets/lighthouse.png" loading="lazy" alt="lighthouse by Google" />
         </div>
     </footer>
-    <script src="./js/index.js"></script>
+    <script type="module" src="index.js"></script>
 </body>
 </ lang="en">
