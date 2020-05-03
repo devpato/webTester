@@ -1,0 +1,19 @@
+{
+  "name": "website-tester",
+  "version": "1.0.0",
+  "description": "Website to test your website using Google tools",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/devpato/webTester.git"
+  },
+  "author": "devpato - Patricio Vargas",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/devpato/webTester/issues"
+  },
+  "homepage": "https://github.com/devpato/webTester#readme"
+}
