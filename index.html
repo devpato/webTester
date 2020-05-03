@@ -19,7 +19,23 @@
 
 
 <body>
-    <p>MY PWA</p>
+    <div class="form-container">
+        <form id="testForm">
+            <input type="text" value="https://morkasshoes.com/" id="testURL" required name="url"
+                placeholder="https://google.com">
+            <button id="formSubmit" class="btn btn--green">Test</button>
+        </form>
+        <p id="errorMessage"></p>
+    </div>
+    <div class="report-container"></div>
+    <footer>
+        <div class="devpato">
+            <p>Made with ❤️ by devpato</p>
+        </div>
+        <div class="lighthouse">
+            <p>Powered by</p><img src="./assets/lighthouse.png" loading="lazy" alt="lighthouse by Google" />
+        </div>
+    </footer>
     <script src="./js/index.js"></script>
 </body>
 </ lang="en">
