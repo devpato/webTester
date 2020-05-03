@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/devpato/webTester/issues"
   },
-  "homepage": "https://github.com/devpato/webTester#readme"
+  "homepage": "https://github.com/devpato/webTester#readme",
+  "devDependencies": {
+    "cssnano": "^4.1.10"
+  }
 }
