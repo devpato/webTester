@@ -1,6 +1,4 @@
-/*
-    INPUT
-*/
+@import './variables';
 
 .input {
     padding: 0 .5em 0 .75em;
@@ -10,5 +8,5 @@
     height: 40px;
     border-width:0px;
     border:none;
-    font-size: 14px;
+    font-size: $font-16;
 }

@@ -1,6 +1,4 @@
-/*
-    BUTTON
-*/
+@import './variables';
 
 .btn {
     height: 40px;
@@ -12,9 +10,9 @@
     margin: 0 8px;
     cursor: pointer;
     border-radius: 25px;
-}
 
-.btn--green {
-    background-color: #4CAF50;
-    color: #fff;
+    &--green {
+        background-color: $primary-green;
+        color: $white;
+    }
 }

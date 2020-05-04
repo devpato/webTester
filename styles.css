@@ -1,53 +1,116 @@
-@import './src/styles/circle.css';
-@import './src/styles/button.css';
-@import './src/styles/input.css';
+.progress {
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 16px;
+}
+.progress__text {
+  top: 28px;
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  font-size: 2em;
+}
+.progress__title {
+  margin: 8px;
+  font-size: 0.875em;
+}
+
+.progress__circle {
+  transform: rotate(-90deg);
+  margin-top: -40px;
+}
+.progress__circle--back {
+  fill: none;
+  stroke: #D2D2D2;
+  stroke-width: 10px;
+}
+.progress__circle--prog {
+  fill: none;
+  stroke-width: 10px;
+  stroke-dasharray: 0 999;
+  stroke-dashoffset: 0px;
+  transition: stroke-dasharray 0.7s linear 0s;
+}
+
+.btn {
+  height: 40px;
+  min-width: 100px;
+  font-size: 14px;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  margin: 0 8px;
+  cursor: pointer;
+  border-radius: 25px;
+}
+.btn--green {
+  background-color: #4CAF50;
+  color: #FFF;
+}
+
+.input {
+  padding: 0 0.5em 0 0.75em;
+  border-radius: 100px;
+  position: relative;
+  min-width: 400px;
+  height: 40px;
+  border-width: 0px;
+  border: none;
+  font-size: 1em;
+}
 
 body {
-    background-color: #0a1930;
-    color: #ecf1f7;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 14px;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
+  background-color: #0a1930;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1em;
+  color: #FFF;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
 .form-container {
-    margin: 24px;
+  margin: 24px;
 }
 
 #errorMessage {
-    color: red;
-    font-size: 16px;
-    display: inline-block
+  color: #DC143C;
+  font-size: 1em;
+  display: inline-block;
 }
 
 .categories {
-    display: flex;
-    margin: 24px 0;
-    padding: 40px;
+  display: flex;
+  margin: 24px 0;
+  padding: 40px;
 }
 
 /*
     FOOTER
 */
-
 footer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;position: absolute;
-    bottom: 0;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }
 
 .lighthouse {
-    display: flex;
-    align-items: center;
-    font-weight: bold;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
 }
 
 .lighthouse img {
-    height: 24px;
-    cursor: pointer;
+  height: 24px;
+  cursor: pointer;
 }
+
+/*# sourceMappingURL=styles.css.map */
