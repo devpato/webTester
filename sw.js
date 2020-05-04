@@ -1,10 +1,9 @@
-// Service Worker
 const cacheName = "my-website-tester";
 const filesToCache = [
     "/",
     "index.html",
-    "./js/index.js",
-    "./styles.css"
+    "index.js",
+    "styles.css"
 ];
 
 self.addEventListener("install", e => {

@@ -53,10 +53,11 @@
 }
 
 .input {
+  margin: 8px 0;
   padding: 0 0.5em 0 0.75em;
   border-radius: 100px;
   position: relative;
-  min-width: 400px;
+  min-width: 340px;
   height: 40px;
   border-width: 0px;
   border: none;
