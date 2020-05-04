@@ -106,15 +106,13 @@ body {
 
 a {
   font-size: 1em;
-}
-a:hover {
-  color: #DC143C;
+  color: #f58383;
 }
 a:active {
-  color: #FFF;
+  color: #f58383;
 }
 a:visited {
-  color: #FFF;
+  color: #f58383;
 }
 
 footer {

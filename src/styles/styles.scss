@@ -47,16 +47,14 @@ body {
 
 a {
    font-size: $font-16;
-   &:hover {
-        color: $primary-red;
-   }
+    color: #f58383;
 
    &:active {
-        color: $white
+        color: #f58383
    }
 
    &:visited {
-        color: $white
+        color: #f58383
    }
 }
 
