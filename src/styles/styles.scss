@@ -36,7 +36,7 @@ body {
     top: -40px;
     left: 0;
     background: $dark-blue;
-    color: white;
+    color: $white;
     padding: 8px;
     z-index: 100;
   }
@@ -47,6 +47,17 @@ body {
 
 a {
    font-size: $font-16;
+   :hover {
+        color: $primary-red;
+   }
+
+   :active {
+        color: $white
+   }
+
+   :visited {
+        color: $white
+   }
 }
 
 footer {
