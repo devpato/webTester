@@ -13,12 +13,15 @@
     <meta name="apple-mobile-web-app-title" content="Website Tester">
     <link rel="apple-touch-icon" href="assets/icons/icon-152x152.png">
     <title>Website Tester</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="preload" href="styles.css" as="style">
     <link rel="stylesheet" type="text/css" href="styles.css" />
 </head>
 
 <body>
+    <a class="skip-link" href="#maincontent">Skip to main</a>
+    <h1>Website Tester</h1>
     <div class="form-container">
+        <label for="testURL">Enter a URL to Test</label>
         <form id="testForm">
             <input type="text" value="" id="testURL" required name="url" placeholder="Example: https://google.com"
                 class="input">
@@ -37,4 +40,3 @@
     </footer>
     <script type="module" src="index.js"></script>
 </body>
-</ lang="en">

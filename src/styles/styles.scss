@@ -31,9 +31,23 @@ body {
     padding: 40px;
 }
 
-/*
-    FOOTER
-*/
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: $dark-blue;
+    color: white;
+    padding: 8px;
+    z-index: 100;
+  }
+  
+.skip-link:focus {
+    top: 0;
+}
+
+a {
+   font-size: $font-16;
+}
 
 footer {
     display: flex;
