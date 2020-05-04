@@ -47,15 +47,15 @@ body {
 
 a {
    font-size: $font-16;
-   :hover {
+   &:hover {
         color: $primary-red;
    }
 
-   :active {
+   &:active {
         color: $white
    }
 
-   :visited {
+   &:visited {
         color: $white
    }
 }

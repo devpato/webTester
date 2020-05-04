@@ -107,13 +107,13 @@ body {
 a {
   font-size: 1em;
 }
-a :hover {
+a:hover {
   color: #DC143C;
 }
-a :active {
+a:active {
   color: #FFF;
 }
-a :visited {
+a:visited {
   color: #FFF;
 }
 
