@@ -8,6 +8,8 @@
     align-items: center;
     justify-content: center;
     margin: 0 16px;
+    transition-timing-function: ease-in;
+    transition: 0.2s;
 
     &__text {
         top: 28px;
@@ -39,5 +41,26 @@
         stroke-dasharray: 0 999;    
         stroke-dashoffset: 0px;
         transition: stroke-dasharray 0.7s linear 0s;
+    }
+}
+
+.loading {
+    display: flex;
+    margin: 24px 0;
+    padding: 40px;
+    transition-timing-function: ease-in;
+    &__circle {
+        height: 160px;
+        width: 160px;
+        background-color: $medium-blue;
+        margin: 0 16px;
+        border-radius: 50%;
+        animation: blinker 2s linear infinite;
+    }
+}
+  
+@keyframes blinker {
+    50% {
+        opacity: 0;
     }
 }
