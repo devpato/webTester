@@ -24,7 +24,6 @@ export default class PerformanceReport {
             this.__fetchCall(this.__INPUT.value);
         } else if (this.__INPUT.value) {
             validateUrl(this.__INPUT.value);
-            this.__INPUT.value = '';
             this.__ERROR_MESSAGE.innerHTML = "Please enter a valid URL";
         } else {
             this.__INPUT.value = '';
@@ -37,16 +36,15 @@ export default class PerformanceReport {
      * @param {string} url URL entered in the input box
      */
     __fetchCall(url) {
-        this.__REPORT_CONTAINER.innerHTML = '';
         const BASE_URL = 'https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url='
-
-        fetch(encodeURI(`${BASE_URL}${url}&strategy=desktop&utm_source=lh-chrome-ext&category=performance&category=accessibility&category=best-practices&category=seo&category=pwa&key=&key=AIzaSyDgh0rRy-3t76lVh7YSj00AEIU71UT9LeA`))
+        this.__loader();
+        fetch(encodeURI(`${BASE_URL}${url}&strategy=desktop&utm_source=lh-chrome-ext&category=performance&category=accessibility&category=best-practices&category=seo&category=pwa&key=AIzaSyDgh0rRy-3t76lVh7YSj00AEIU71UT9LeA`))
             .then(response => response.json())
             .then(result => {
-                this.__INPUT.value = '';
                 this.__categoriesReportGenerator(result.lighthouseResult.categories);
             })
             .catch(err => {
+                this.__REPORT_CONTAINER.innerHTML = '';
                 this.__ERROR_MESSAGE.innerHTML = 'An error occured. Please try again.';
             });
     }
@@ -56,17 +54,41 @@ export default class PerformanceReport {
      * @param {Object} categoriesObj
      */
     __categoriesReportGenerator(categoriesObj) {
+        this.__REPORT_CONTAINER.innerHTML = '';
+        this.__ERROR_MESSAGE.innerHTML = '';
+
         let categoryObj;
         const CATEGORIES = document.createElement('div');
         CATEGORIES.className = 'categories';
         const categoriesArray = Object.keys(categoriesObj);
+        const URL = document.createElement('p');
+        URL.style.textAlign = 'center';
+        URL.innerHTML = this.__INPUT.value;
+        this.__REPORT_CONTAINER.append(URL);
 
         for (const key in categoriesArray) {
             categoryObj = categoriesObj[categoriesArray[key]];
-            CATEGORIES.innerHTML += this.__catergoryScoreBuilder(categoryObj);
+            CATEGORIES.innerHTML += this.constructor.catergoryScoreBuilder(categoryObj);
             this.__REPORT_CONTAINER.append(CATEGORIES);
-            this.__progressBar(+categoryObj.score * 100, categoryObj.id)
+            this.constructor.progressBar(+categoryObj.score * 100, categoryObj.id)
         }
+
+        this.__INPUT.value = '';
+    }
+
+    __loader() {
+        this.__REPORT_CONTAINER.innerHTML = '';
+
+        const LOADING = document.createElement('div');
+        LOADING.className = "loading";
+
+        for (let i = 0; i < 5; i++) {
+            const CIRCLE = document.createElement('div');
+            CIRCLE.className = "loading__circle";
+            LOADING.append(CIRCLE);
+        }
+
+        this.__REPORT_CONTAINER.append(LOADING);
     }
 
     /**
@@ -74,7 +96,7 @@ export default class PerformanceReport {
     * @param {Object} category
     * @return {string} returns a html string containing the score circle
     */
-    __catergoryScoreBuilder(category) {
+    static catergoryScoreBuilder(category) {
         return `<div class="progress" id="${category.id}">
                     <svg class="progress__circle" width="160px" height="160px" xmlns="http://www.w3.org/2000/svg">
                         <circle class="progress__circle--back" cx="80" cy="80" r="74"></circle>
@@ -90,7 +112,7 @@ export default class PerformanceReport {
     * @param {string} score Score of the category provided by API call
     * @param {string} category Category passed to dynamically created IDs
     */
-    __progressBar(score, category) {
+    static progressBar(score, category) {
         const strokeVal = 4.64;
         const CIRCLE = document.querySelector(`.progress-${category}`);
         CIRCLE.style.strokeDasharray = (score * strokeVal) + ' 999';
