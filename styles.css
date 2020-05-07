@@ -87,7 +87,7 @@
 }
 
 body {
-  background-color: #0a1930;
+  background-color: #14202c;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 1em;
   color: #FFF;
@@ -117,7 +117,7 @@ body {
   position: absolute;
   top: -40px;
   left: 0;
-  background: #0a1930;
+  background: #14202c;
   color: #FFF;
   padding: 8px;
   z-index: 100;
