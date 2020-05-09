@@ -6,7 +6,7 @@ let sw = null;
 
 const onInit = () => {
     new PerformanceReport();
-    RegisterSw();
+    //RegisterSw();
 }
 
 const RegisterSw = () => {

@@ -1,4 +1,4 @@
-import { validateUrl } from '../helpers/helpers.js'
+import { validateUrl, queryBuilder } from '../helpers/helpers.js'
 import { COLOR } from '../enums/colors.js'
 
 export default class PerformanceReport {
@@ -15,13 +15,14 @@ export default class PerformanceReport {
      * Call necessary things onLoad for the app to work
      */
     __onLoad() {
-        this.__BUTTON.addEventListener('click', (event) => this.__onSubmitForm(event));
+        this.__BUTTON.addEventListener('click', async (event) => await this.__onSubmitForm(event));
     }
 
-    __onSubmitForm(e) {
+    async __onSubmitForm(e) {
         e.preventDefault();
+        this.__INPUT.value = this.__INPUT.value.trim();
         if (this.__INPUT.checkValidity() && validateUrl(this.__INPUT.value)) {
-            this.__fetchCall(this.__INPUT.value);
+            await this.__fetchCall(this.__INPUT.value);
         } else if (this.__INPUT.value) {
             validateUrl(this.__INPUT.value);
             this.__ERROR_MESSAGE.innerHTML = "Please enter a valid URL";
@@ -35,18 +36,24 @@ export default class PerformanceReport {
      * GET fetch call to the Google API
      * @param {string} url URL entered in the input box
      */
-    __fetchCall(url) {
-        const BASE_URL = 'https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url='
-        this.__loader();
-        fetch(encodeURI(`${BASE_URL}${url}&strategy=desktop&utm_source=lh-chrome-ext&category=performance&category=accessibility&category=best-practices&category=seo&category=pwa&key=AIzaSyDgh0rRy-3t76lVh7YSj00AEIU71UT9LeA`))
-            .then(response => response.json())
-            .then(result => {
-                this.__categoriesReportGenerator(result.lighthouseResult.categories);
-            })
-            .catch(err => {
-                this.__REPORT_CONTAINER.innerHTML = '';
-                this.__ERROR_MESSAGE.innerHTML = 'An error occured. Please try again.';
-            });
+    async __fetchCall(url) {
+        this.__loading();
+
+        const API = 'https://www.googleapis.com/pagespeedonline/v5/runPagespeed'
+        const parameters = {
+            url: encodeURIComponent(url),
+            strategy: "desktop",
+            category: ["performance", "accessibility", "best-practices", "seo", "pwa"],
+            key: "AIzaSyDgh0rRy-3t76lVh7YSj00AEIU71UT9LeA"
+        };
+
+        try {
+            const result = await (await fetch(queryBuilder(API, parameters))).json();
+            this.__categoriesReportGenerator(result.lighthouseResult.categories);
+        } catch (err) {
+            this.__REPORT_CONTAINER.innerHTML = '';
+            this.__ERROR_MESSAGE.innerHTML = 'An error occured. Please try again.';
+        }
     }
 
     /**
@@ -76,7 +83,10 @@ export default class PerformanceReport {
         this.__INPUT.value = '';
     }
 
-    __loader() {
+    /**
+     * Creates animated circles to wait for the fetch call to resolve
+     */
+    __loading() {
         this.__REPORT_CONTAINER.innerHTML = '';
 
         const LOADING = document.createElement('div');
@@ -102,7 +112,7 @@ export default class PerformanceReport {
                         <circle class="progress__circle--back" cx="80" cy="80" r="74"></circle>
                         <circle class="progress__circle--prog progress-${category.id}" cx="80" cy="80" r="74"></circle>
                     </svg>
-                    <div class="progress__text" data-progress="0">${+category.score * 100}</div>
+                    <div class="progress__text" data-progress="0">${Math.trunc(+category.score * 100)}</div>
                     <div class="progress__title">${category.title}</div>
                 </div>`
     }
