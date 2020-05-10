@@ -152,6 +152,10 @@ export default class PerformanceReport {
         SCORE.dataset.progress = score;
     }
 
+    /**
+   * Displays data based on the Chrome UX
+   * @param {object} results
+   */
     __chromeUXReports(results) {
         const cruxHeader = document.createElement('h2');
         cruxHeader.textContent = "Chrome User Experience Report Results";
@@ -163,6 +167,10 @@ export default class PerformanceReport {
         }
     }
 
+    /**
+    * Displays data based on the lighthouse results
+    * @param {object} results results.lighthouseResult
+    */
     __lighthouseResults(results) {
         const lighthouseHeader = document.createElement('h2');
         lighthouseHeader.textContent = "Lighthouse Results";
@@ -172,10 +180,6 @@ export default class PerformanceReport {
             p.textContent = `${key}: ${results[key]}`;
             this.__LIGHTHOUSE_CONTAINER.appendChild(p);
         }
-    }
-
-    __buildCroxMetrics() {
-
     }
 
     __resetHTML() {
