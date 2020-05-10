@@ -1,11 +1,11 @@
 "use strict";
 
-import PerformanceReport from './src/js/classes/performanceReport.js';
+import PageReport from './src/js/classes/pageReport.js';
 
 let sw = null;
 
 const onInit = () => {
-    new PerformanceReport();
+    new PageReport();
     //RegisterSw();
 }
 

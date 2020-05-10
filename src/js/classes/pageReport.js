@@ -1,7 +1,7 @@
 import { validateUrl, queryBuilder } from '../helpers/helpers.js'
 import { COLOR } from '../enums/colors.js'
 
-export default class PerformanceReport {
+export default class PageReport {
 
     constructor() {
         this.__BUTTON = document.getElementById('formSubmit');
@@ -54,24 +54,12 @@ export default class PerformanceReport {
         try {
             const results = await (await fetch(queryBuilder(API, parameters))).json();
             this.__resetHTML();
+
             this.__categoriesReportGenerator(results.lighthouseResult.categories);
 
-            const cruxMetrics = {
-                "First Contentful Paint": results.loadingExperience.metrics.FIRST_CONTENTFUL_PAINT_MS.category,
-                "First Input Delay": results.loadingExperience.metrics.FIRST_INPUT_DELAY_MS.category
-            };
-            this.__chromeUXReports(cruxMetrics);
+            this.__chromeUXReports(PageReport.buildChromUXReport(results.loadingExperience));
 
-            const lighthouse = results.lighthouseResult;
-            const lighthouseMetrics = {
-                'First Contentful Paint': lighthouse.audits['first-contentful-paint'].displayValue,
-                'Speed Index': lighthouse.audits['speed-index'].displayValue,
-                'Time To Interactive': lighthouse.audits['interactive'].displayValue,
-                'First Meaningful Paint': lighthouse.audits['first-meaningful-paint'].displayValue,
-                'First CPU Idle': lighthouse.audits['first-cpu-idle'].displayValue,
-                'Estimated Input Latency': lighthouse.audits['estimated-input-latency'].displayValue
-            };
-            this.__lighthouseResults(lighthouseMetrics);
+            this.__lighthouseResults(PageReport.buildLighthouseMetrics(results.lighthouseResult));
         } catch (err) {
             this.__resetHTML();
             this.__ERROR_MESSAGE.style.display = "inline-block"
@@ -107,8 +95,8 @@ export default class PerformanceReport {
 
         for (const key in categoriesArray) {
             categoryObj = categoriesObj[categoriesArray[key]];
-            this.__CATERGORIES_CONTAINER.innerHTML += PerformanceReport.catergoryScoreBuilder(categoryObj);
-            PerformanceReport.progressBar(+categoryObj.score * 100, categoryObj.id)
+            this.__CATERGORIES_CONTAINER.innerHTML += PageReport.catergoryScoreBuilder(categoryObj);
+            PageReport.progressBar(+categoryObj.score * 100, categoryObj.id)
         }
 
         this.__INPUT.value = '';
@@ -160,10 +148,17 @@ export default class PerformanceReport {
         const cruxHeader = document.createElement('h2');
         cruxHeader.textContent = "Chrome User Experience Report Results";
         this.__UX_CONTAINER.appendChild(cruxHeader);
-        for (let key in results) {
-            const p = document.createElement('p');
-            p.textContent = `${key}: ${results[key]}`;
-            this.__UX_CONTAINER.appendChild(p);
+
+        if (results !== null) {
+            for (let key in results) {
+                const p = document.createElement('p');
+                p.textContent = `${key}: ${results[key]}`;
+                this.__UX_CONTAINER.appendChild(p);
+            }
+        } else {
+            const na = document.createElement('h2');
+            na.textContent = "N/A";
+            this.__UX_CONTAINER.appendChild(na);
         }
     }
 
@@ -181,6 +176,25 @@ export default class PerformanceReport {
             this.__LIGHTHOUSE_CONTAINER.appendChild(p);
         }
     }
+
+    static buildChromUXReport(loadingExperience) {
+        return loadingExperience.metrics ? {
+            "First Contentful Paint": loadingExperience.metrics.FIRST_CONTENTFUL_PAINT_MS.category,
+            "First Input Delay": loadingExperience.metrics.FIRST_INPUT_DELAY_MS.category
+        } : null;
+    }
+
+    static buildLighthouseMetrics(lighthouse) {
+        return lighthouse.audits ? {
+            'First Contentful Paint': lighthouse.audits['first-contentful-paint'] ? lighthouse.audits['first-contentful-paint'].displayValue : 'N/A',
+            'Speed Index': lighthouse.audits['speed-index'] ? lighthouse.audits['speed-index'].displayValue : 'N/A',
+            'Time To Interactive': lighthouse.audits['interactive'] ? lighthouse.audits['interactive'].displayValue : 'N/A',
+            'First Meaningful Paint': lighthouse.audits['first-meaningful-paint'] ? lighthouse.audits['first-meaningful-paint'].displayValue : "N/A",
+            'First CPU Idle': lighthouse.audits['first-cpu-idle'] ? lighthouse.audits['first-cpu-idle'].displayValue : "N/A",
+            'Estimated Input Latency': lighthouse.audits['estimated-input-latency'] ? lighthouse.audits['estimated-input-latency'].displayValue : "N/A"
+        } : null;
+    }
+
 
     __resetHTML() {
         this.__LOADING.innerHTML = "";
