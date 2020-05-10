@@ -6,8 +6,12 @@ export default class PerformanceReport {
     constructor() {
         this.__BUTTON = document.getElementById('formSubmit');
         this.__ERROR_MESSAGE = document.getElementById('errorMessage');
-        this.__REPORT_CONTAINER = document.querySelector('.report-container');
         this.__INPUT = document.getElementById('testURL');
+        this.__LOADING = document.querySelector('.loading');
+        this.__REPORT_CONTAINER = document.querySelector('.report-container');
+        this.__CATERGORIES_CONTAINER = document.querySelector('.categories-results');
+        this.__UX_CONTAINER = document.querySelector('.ux-container');
+        this.__LIGHTHOUSE_CONTAINER = document.querySelector('.lighthouse-container');
         this.__onLoad();
     }
 
@@ -48,11 +52,44 @@ export default class PerformanceReport {
         };
 
         try {
-            const result = await (await fetch(queryBuilder(API, parameters))).json();
-            this.__categoriesReportGenerator(result.lighthouseResult.categories);
+            const results = await (await fetch(queryBuilder(API, parameters))).json();
+            this.__resetHTML();
+            this.__categoriesReportGenerator(results.lighthouseResult.categories);
+
+            const cruxMetrics = {
+                "First Contentful Paint": results.loadingExperience.metrics.FIRST_CONTENTFUL_PAINT_MS.category,
+                "First Input Delay": results.loadingExperience.metrics.FIRST_INPUT_DELAY_MS.category
+            };
+            this.__chromeUXReports(cruxMetrics);
+
+            const lighthouse = results.lighthouseResult;
+            const lighthouseMetrics = {
+                'First Contentful Paint': lighthouse.audits['first-contentful-paint'].displayValue,
+                'Speed Index': lighthouse.audits['speed-index'].displayValue,
+                'Time To Interactive': lighthouse.audits['interactive'].displayValue,
+                'First Meaningful Paint': lighthouse.audits['first-meaningful-paint'].displayValue,
+                'First CPU Idle': lighthouse.audits['first-cpu-idle'].displayValue,
+                'Estimated Input Latency': lighthouse.audits['estimated-input-latency'].displayValue
+            };
+            this.__lighthouseResults(lighthouseMetrics);
         } catch (err) {
-            this.__REPORT_CONTAINER.innerHTML = '';
-            this.__ERROR_MESSAGE.innerHTML = 'An error occured. Please try again.';
+            this.__resetHTML();
+            this.__ERROR_MESSAGE.style.display = "inline-block"
+            this.__ERROR_MESSAGE.innerHTML = "An error occured. Please try again.";
+        }
+    }
+
+    /**
+     * Creates animated circles to wait for the fetch call to resolve
+     */
+    __loading() {
+        this.__resetHTML();
+        this.__LOADING.style.display = 'flex';
+
+        for (let i = 0; i < 5; i++) {
+            const CIRCLE = document.createElement('div');
+            CIRCLE.className = "loading__circle";
+            this.__LOADING.append(CIRCLE);
         }
     }
 
@@ -61,44 +98,20 @@ export default class PerformanceReport {
      * @param {Object} categoriesObj
      */
     __categoriesReportGenerator(categoriesObj) {
-        this.__REPORT_CONTAINER.innerHTML = '';
-        this.__ERROR_MESSAGE.innerHTML = '';
-
         let categoryObj;
-        const CATEGORIES = document.createElement('div');
-        CATEGORIES.className = 'categories';
         const categoriesArray = Object.keys(categoriesObj);
         const URL = document.createElement('p');
         URL.style.textAlign = 'center';
         URL.innerHTML = this.__INPUT.value;
-        this.__REPORT_CONTAINER.append(URL);
+        //this.__REPORT_CONTAINER.append(URL);
 
         for (const key in categoriesArray) {
             categoryObj = categoriesObj[categoriesArray[key]];
-            CATEGORIES.innerHTML += this.constructor.catergoryScoreBuilder(categoryObj);
-            this.__REPORT_CONTAINER.append(CATEGORIES);
-            this.constructor.progressBar(+categoryObj.score * 100, categoryObj.id)
+            this.__CATERGORIES_CONTAINER.innerHTML += PerformanceReport.catergoryScoreBuilder(categoryObj);
+            PerformanceReport.progressBar(+categoryObj.score * 100, categoryObj.id)
         }
 
         this.__INPUT.value = '';
-    }
-
-    /**
-     * Creates animated circles to wait for the fetch call to resolve
-     */
-    __loading() {
-        this.__REPORT_CONTAINER.innerHTML = '';
-
-        const LOADING = document.createElement('div');
-        LOADING.className = "loading";
-
-        for (let i = 0; i < 5; i++) {
-            const CIRCLE = document.createElement('div');
-            CIRCLE.className = "loading__circle";
-            LOADING.append(CIRCLE);
-        }
-
-        this.__REPORT_CONTAINER.append(LOADING);
     }
 
     /**
@@ -137,5 +150,41 @@ export default class PerformanceReport {
 
         const SCORE = document.querySelector('.progress__text');
         SCORE.dataset.progress = score;
+    }
+
+    __chromeUXReports(results) {
+        const cruxHeader = document.createElement('h2');
+        cruxHeader.textContent = "Chrome User Experience Report Results";
+        this.__UX_CONTAINER.appendChild(cruxHeader);
+        for (let key in results) {
+            const p = document.createElement('p');
+            p.textContent = `${key}: ${results[key]}`;
+            this.__UX_CONTAINER.appendChild(p);
+        }
+    }
+
+    __lighthouseResults(results) {
+        const lighthouseHeader = document.createElement('h2');
+        lighthouseHeader.textContent = "Lighthouse Results";
+        this.__LIGHTHOUSE_CONTAINER.appendChild(lighthouseHeader);
+        for (let key in results) {
+            const p = document.createElement('p');
+            p.textContent = `${key}: ${results[key]}`;
+            this.__LIGHTHOUSE_CONTAINER.appendChild(p);
+        }
+    }
+
+    __buildCroxMetrics() {
+
+    }
+
+    __resetHTML() {
+        this.__LOADING.innerHTML = "";
+        this.__LOADING.style.display = "none";
+        this.__ERROR_MESSAGE.innerHTML = ""
+        this.__ERROR_MESSAGE.style.display = "none"
+        document.querySelector('.categories-results').innerHTML = "";
+        document.querySelector('.ux-container').innerHTML = "";
+        document.querySelector('.lighthouse-container').innerHTML = "";
     }
 }
