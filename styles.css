@@ -39,7 +39,7 @@
 }
 
 .loading {
-  display: flex;
+  display: none;
   margin: 24px 0;
   padding: 40px;
   transition-timing-function: ease-in;
@@ -97,20 +97,20 @@ body {
   flex-direction: column;
 }
 
-.form-container {
-  margin: 24px;
-}
-
 #errorMessage {
   color: #DC143C;
   font-size: 1em;
   display: inline-block;
 }
 
-.categories {
+.categories-results {
   display: flex;
   margin: 24px 0;
   padding: 40px;
+}
+
+.other-results {
+  display: flex;
 }
 
 .skip-link {

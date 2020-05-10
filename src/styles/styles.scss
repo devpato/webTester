@@ -15,20 +15,20 @@ body {
     flex-direction: column;
 }
 
-.form-container {
-    margin: 24px;
-}
-
 #errorMessage {
     color: $primary-red;
     font-size: $font-16;
     display: inline-block;
 }
 
-.categories {
+.categories-results {
     display: flex;
     margin: 24px 0;
     padding: 40px;
+}
+
+.other-results {
+    display: flex;
 }
 
 .skip-link {
