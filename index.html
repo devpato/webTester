@@ -18,36 +18,39 @@
 </head>
 
 <body>
-    <a class="skip-link" href="#maincontent">Skip to main</a>
-    <h1>Website Tester</h1>
-    <div class="form-container">
-        <label for="testURL">Enter a website url to test</label>
-        <form id="testForm">
-            <input type="text" value="" id="testURL" required name="url" placeholder="Example: https://google.com"
-                class="input">
-            <button id="formSubmit" class="btn btn--green">Test</button>
-        </form>
-        <p id="errorMessage"></p>
+    <div class="page-container">
+        <a class="skip-link" href="#maincontent">Skip to main</a>
+        <h1>Website Tester</h1>
+        <div class="form-container">
+            <label for="testURL">Enter a website url to test</label>
+            <form id="testForm">
+                <input type="text" value="" id="testURL" required name="url" placeholder="Example: https://google.com"
+                    class="input">
+                <button id="formSubmit" class="btn btn--green">Test</button>
+            </form>
+            <p id="errorMessage"></p>
+        </div>
+        <div class="report-container">
+            <div class="loading"></div>
+            <p class="tested-url"></p>
+            <div class="categories-results"></div>
+            <div class="other-results">
+                <div class="ux-container"></div>
+                <div class="lighthouse-container"></div>
+            </div>
+        </div>
+        <footer>
+            <div class="devpato">
+                <p>Made with ❤️ by <a href="https://twitter.com/devpato">devpato</a></p>
+            </div>
+            <div class="lighthouse">
+                <p>Powered by</p><img src="./assets/lighthouse.png" loading="lazy" alt="lighthouse by Google" />
+            </div>
+        </footer>
     </div>
-    <div class="report-container">
-        <div class="loading"></div>
-        <p class="tested-url"></p>
-        <div class="categories-results"></div>
-        <div class="other-results">
-            <div class="ux-container"></div>
-            <div class="lighthouse-container"></div>
-        </div>
-    </div>
-    <footer>
-        <div class="devpato">
-            <p>Made with ❤️ by <a href="https://twitter.com/devpato">devpato</a></p>
-        </div>
-        <div class="lighthouse">
-            <p>Powered by</p><img src="./assets/lighthouse.png" loading="lazy" alt="lighthouse by Google" />
-        </div>
-    </footer>
     <script type="module" src="index.js"></script>
     <link rel="preload" href="./src/js/classes/pageReport.js" as="script" crossorigin="anonymous">
     <link rel="preload" href="./src/js/enums/colors.js" as="script" crossorigin="anonymous">
+    <link rel="preload" href="./src/js/enums/speed.js" as="script" crossorigin="anonymous">
     <link rel="preload" href="./src/js/helpers/helpers.js" as="script" crossorigin="anonymous">
 </body>

@@ -20,6 +20,11 @@
   margin: 8px;
   font-size: 0.875em;
 }
+@media screen and (max-width: 1084px) {
+  .progress {
+    margin-top: 40px;
+  }
+}
 
 .progress__circle {
   transform: rotate(-90deg);
@@ -51,6 +56,20 @@
   margin: 0 16px;
   border-radius: 50%;
   animation: blinker 2s linear infinite;
+}
+@media screen and (max-width: 1084px) {
+  .loading__circle {
+    margin-top: 8px;
+  }
+}
+@media screen and (max-width: 1084px) {
+  .loading {
+    margin-top: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
 @keyframes blinker {
@@ -86,15 +105,27 @@
   font-size: 1em;
 }
 
+@media screen and (max-width: 510px) {
+  .form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .form-container #testForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .form-container #testForm button {
+    width: 100%;
+  }
+}
+
 body {
   background-color: #14202c;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 1em;
   color: #FFF;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
 }
 
 #errorMessage {
@@ -103,15 +134,43 @@ body {
   display: inline-block;
 }
 
+.page-container {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
 .categories-results {
   display: flex;
   margin: 24px 0;
   padding: 40px;
 }
+@media screen and (max-width: 1084px) {
+  .categories-results {
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+  }
+}
 
 .other-results {
   display: flex;
   justify-content: space-evenly;
+  padding-bottom: 2.5rem;
+}
+@media screen and (max-width: 1084px) {
+  .other-results {
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+  }
+  .other-results h2, .other-results p {
+    text-align: center;
+  }
 }
 
 .skip-link {
@@ -139,6 +198,10 @@ a:visited {
   color: #f58383;
 }
 
+.report-container {
+  padding-bottom: 110px;
+}
+
 footer {
   display: flex;
   flex-direction: column;
@@ -146,6 +209,7 @@ footer {
   position: absolute;
   bottom: 0;
   width: 100%;
+  height: 110px;
 }
 
 .lighthouse {

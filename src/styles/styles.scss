@@ -2,6 +2,7 @@
 @import 'circle';
 @import 'button';
 @import 'input';
+@import 'form';
 
 
 body {
@@ -9,10 +10,6 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     font-size: $font-16;
     color: $white;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
 }
 
 #errorMessage {
@@ -21,15 +18,41 @@ body {
     display: inline-block;
 }
 
+.page-container {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
 .categories-results {
     display: flex;
     margin: 24px 0;
     padding: 40px;
+
+    @media screen and (max-width: 1084px) {
+        flex-direction: column;
+        align-items: center;
+        margin: 0;
+        padding: 0;
+    }
 }
 
 .other-results {
     display: flex;
     justify-content: space-evenly;
+    padding-bottom: 2.5rem;
+    @media screen and (max-width: 1084px) {
+        flex-direction: column;
+        align-items: center;
+        margin: 0;
+        padding: 0;
+        
+        h2, p {
+            text-align: center;
+        }
+    }
 }
 
 .skip-link {
@@ -59,12 +82,18 @@ a {
    }
 }
 
+.report-container {
+    padding-bottom: 110px;
+}
+
 footer {
     display: flex;
     flex-direction: column;
-    align-items: center;position: absolute;
+    align-items: center;
+    position: absolute;
     bottom: 0;
     width: 100%;
+    height: 110px;
 }
 
 .lighthouse {
