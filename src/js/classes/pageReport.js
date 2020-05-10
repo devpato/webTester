@@ -99,6 +99,8 @@ export default class PageReport {
             PageReport.progressBar(+categoryObj.score * 100, categoryObj.id)
         }
 
+        PageReport.progressBarAnimation(categoriesObj);
+
         this.__INPUT.value = '';
     }
 
@@ -124,9 +126,7 @@ export default class PageReport {
     * @param {string} category Category passed to dynamically created IDs
     */
     static progressBar(score, category) {
-        const strokeVal = 4.64;
         const CIRCLE = document.querySelector(`.progress-${category}`);
-        CIRCLE.style.strokeDasharray = (score * strokeVal) + ' 999';
 
         if (score > 90) {
             CIRCLE.style.stroke = COLOR.GREEN;
@@ -138,6 +138,17 @@ export default class PageReport {
 
         const SCORE = document.querySelector('.progress__text');
         SCORE.dataset.progress = score;
+    }
+
+    static progressBarAnimation(categoriesObj) {
+        const categoriesArray = Object.keys(categoriesObj);
+        const strokeVal = 4.64;
+        setTimeout(() => {
+            for (const key in categoriesArray) {
+                const categoryObj = categoriesObj[categoriesArray[key]];
+                document.querySelector(`.progress-${categoryObj.id}`).style.strokeDasharray = ((+categoryObj.score * 100) * strokeVal) + ' 999';
+            }
+        }, 500);
     }
 
     /**
@@ -205,6 +216,7 @@ export default class PageReport {
         this.__LOADING.style.display = "none";
         this.__ERROR_MESSAGE.innerHTML = ""
         this.__ERROR_MESSAGE.style.display = "none"
+        this.__TESTED_URL.innerHTML = "";
         document.querySelector('.categories-results').innerHTML = "";
         document.querySelector('.ux-container').innerHTML = "";
         document.querySelector('.lighthouse-container').innerHTML = "";
