@@ -10,6 +10,6 @@
 
 export const COLOR = Object.freeze({
     GREEN: "#4CAF50",
-    ORANGE: "#DC143C",
-    RED: "#FFAE1A",
+    ORANGE: "#FFAE1A",
+    RED: "#DC143C",
 });
