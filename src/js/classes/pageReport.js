@@ -1,5 +1,6 @@
 import { validateUrl, queryBuilder } from '../helpers/helpers.js'
 import { COLOR } from '../enums/colors.js'
+import { SPEED } from '../enums/speed.js'
 
 export default class PageReport {
 
@@ -8,6 +9,7 @@ export default class PageReport {
         this.__ERROR_MESSAGE = document.getElementById('errorMessage');
         this.__INPUT = document.getElementById('testURL');
         this.__LOADING = document.querySelector('.loading');
+        this.__TESTED_URL = document.querySelector('.tested-url');
         this.__REPORT_CONTAINER = document.querySelector('.report-container');
         this.__CATERGORIES_CONTAINER = document.querySelector('.categories-results');
         this.__UX_CONTAINER = document.querySelector('.ux-container');
@@ -88,10 +90,8 @@ export default class PageReport {
     __categoriesReportGenerator(categoriesObj) {
         let categoryObj;
         const categoriesArray = Object.keys(categoriesObj);
-        const URL = document.createElement('p');
-        URL.style.textAlign = 'center';
-        URL.innerHTML = this.__INPUT.value;
-        //this.__REPORT_CONTAINER.append(URL);
+        this.__TESTED_URL.textContent = this.__INPUT.value;
+        this.__TESTED_URL.style.textAlign = 'center';
 
         for (const key in categoriesArray) {
             categoryObj = categoriesObj[categoriesArray[key]];
@@ -130,7 +130,7 @@ export default class PageReport {
 
         if (score > 90) {
             CIRCLE.style.stroke = COLOR.GREEN;
-        } else if (50 >= score && score <= 89) {
+        } else if (score >= 50 && score <= 89) {
             CIRCLE.style.stroke = COLOR.ORANGE;
         } else {
             CIRCLE.style.stroke = COLOR.RED;
@@ -151,9 +151,13 @@ export default class PageReport {
 
         if (results !== null) {
             for (let key in results) {
-                const p = document.createElement('p');
-                p.textContent = `${key}: ${results[key]}`;
-                this.__UX_CONTAINER.appendChild(p);
+                const P = document.createElement('p');
+                P.textContent = `${key}: `;
+                const SPAN = document.createElement('span');
+                SPAN.textContent = results[key];
+                SPAN.style.color = SPEED[results[key]];
+                P.appendChild(SPAN);
+                this.__UX_CONTAINER.appendChild(P);
             }
         } else {
             const na = document.createElement('h2');
@@ -171,9 +175,9 @@ export default class PageReport {
         lighthouseHeader.textContent = "Lighthouse Results";
         this.__LIGHTHOUSE_CONTAINER.appendChild(lighthouseHeader);
         for (let key in results) {
-            const p = document.createElement('p');
-            p.textContent = `${key}: ${results[key]}`;
-            this.__LIGHTHOUSE_CONTAINER.appendChild(p);
+            const P = document.createElement('p');
+            P.textContent = `${key}: ${results[key]}`;
+            this.__LIGHTHOUSE_CONTAINER.appendChild(P);
         }
     }
 

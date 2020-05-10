@@ -19,8 +19,3 @@ const RegisterSw = () => {
 }
 
 onInit();
-
-
-
-
-
