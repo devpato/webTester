@@ -5,7 +5,7 @@ import { SPEED } from '../enums/speed.js'
 export default class PageReport {
 
     constructor() {
-        this.__BUTTON = document.getElementById('formSubmit');
+        this.BUTTON = document.getElementById('formSubmit');
         this.__ERROR_MESSAGE = document.getElementById('errorMessage');
         this.__INPUT = document.getElementById('testURL');
         this.__LOADING = document.querySelector('.loading');
@@ -22,10 +22,10 @@ export default class PageReport {
      */
     static init() {
         const pr = new PageReport();
-        pr.__BUTTON.addEventListener('click', async (event) => await pr.__onSubmitForm(event));
+        pr.BUTTON.addEventListener('click', async (event) => await pr.onSubmitForm(event));
     }
 
-    async __onSubmitForm(e) {
+    async onSubmitForm(e) {
         e.preventDefault();
         this.__INPUT.value = this.__INPUT.value.trim();
         if (this.__INPUT.checkValidity() && validateUrl(this.__INPUT.value)) {
