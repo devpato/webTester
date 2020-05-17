@@ -14,14 +14,15 @@ export default class PageReport {
         this.__CATERGORIES_CONTAINER = document.querySelector('.categories-results');
         this.__UX_CONTAINER = document.querySelector('.ux-container');
         this.__LIGHTHOUSE_CONTAINER = document.querySelector('.lighthouse-container');
-        this.__onLoad();
+        // this.__onLoad();
     }
 
     /**
      * Call necessary things onLoad for the app to work
      */
-    __onLoad() {
-        this.__BUTTON.addEventListener('click', async (event) => await this.__onSubmitForm(event));
+    static init() {
+        const pr = new PageReport();
+        pr.__BUTTON.addEventListener('click', async (event) => await pr.__onSubmitForm(event));
     }
 
     async __onSubmitForm(e) {

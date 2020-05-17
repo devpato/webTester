@@ -4,8 +4,8 @@ import PageReport from './src/js/classes/pageReport.js';
 
 let sw = null;
 
-const onInit = () => {
-    new PageReport();
+const onLoad = () => {
+    PageReport.init();
     RegisterSw();
 }
 
@@ -18,4 +18,4 @@ const RegisterSw = () => {
     }
 }
 
-onInit();
+onLoad();
