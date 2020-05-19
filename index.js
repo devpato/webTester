@@ -6,7 +6,7 @@ let sw = null;
 
 const onLoad = () => {
     PageReport.init();
-    RegisterSw();
+    //RegisterSw();
 }
 
 const RegisterSw = () => {
